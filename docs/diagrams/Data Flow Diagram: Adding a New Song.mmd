@@ -1,0 +1,31 @@
+---
+title: "Data Flow Diagram: Adding a New Song"
+---
+
+sequenceDiagram
+    participant User
+    participant Web UI
+    participant yt-dlp Script
+    participant Mopidy
+    participant NFC Reader Script
+    participant PN532 Reader
+    participant NFC Card
+
+    User->>+Web UI: Enters YouTube URL
+    Web UI->>+yt-dlp Script: Sends URL via HTTP request
+    yt-dlp Script->>yt-dlp Script: Downloads audio file
+    yt-dlp Script->>+Mopidy: Triggers library scan/update
+    Mopidy-->>-yt-dlp Script: Acknowledges and adds new song to library
+    yt-dlp Script-->>-Web UI: Confirms download and provides new song URI
+    Web UI-->>-User: Displays success message
+    User->>+Web UI: Clicks "Write to NFC" for the new song
+    Web UI->>+NFC Reader Script: Sends song URI
+    NFC Reader Script->>NFC Reader Script: Waits for NFC card
+    User->>+PN532 Reader: Places NFC card on reader
+    PN532 Reader-->>-NFC Reader Script: Card detected
+    NFC Reader Script->>+PN532 Reader: Writes song URI to card
+    PN532 Reader->>+NFC Card: Stores data
+    NFC Card-->>-PN532 Reader: Write success
+    PN532 Reader-->>-NFC Reader Script: Acknowledges write
+    NFC Reader Script-->>-Web UI: Confirms write success
+    Web UI-->>-User: Displays "NFC tag written successfully"

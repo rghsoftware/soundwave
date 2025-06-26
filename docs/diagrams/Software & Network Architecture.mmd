@@ -1,0 +1,40 @@
+---
+title: Software & Network Architecture
+---
+
+graph TD
+    subgraph "User Interfaces"
+        A[Web UI on Browser]
+        B[Now Playing Desktop App]
+        C[Physical Controls via ESP32]
+    end
+
+    subgraph "Raspberry Pi Zero 2 W"
+        D{Mopidy Server}
+        E[Mopidy-MPD]
+        F[Mopidy-HTTP]
+        G[Mopidy-Local]
+        H[yt-dlp Script]
+        I[NFC Reader Script]
+        J[ESP32 Serial Listener]
+    end
+
+    A -- "HTTP/WebSocket" --> F;
+    F -- "controls" --> D;
+    D -- "now playing info" --> F;
+
+    B -- "MPD Protocol (over TCP)" --> E;
+    E -- "controls" --> D;
+    D -- "now playing info" --> E;
+
+    C -- "USB Serial" --> J;
+    J -- "parses and sends commands" --> D;
+
+    A -- "triggers" --> H;
+    H -- "adds to library" --> G;
+    G -- "updates" --> D;
+
+    A -- "triggers" --> I;
+    I -- "writes to NFC card" --> K((NFC Card));
+    K -- "is read by" --> I;
+    I -- "sends play command" --> D;

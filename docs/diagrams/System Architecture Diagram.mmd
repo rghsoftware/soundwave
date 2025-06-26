@@ -1,0 +1,34 @@
+graph TD
+    subgraph "Local Network"
+        A[Mobile/Desktop Browser] -- HTTP --> B{Web Server};
+        D[Now Playing Desktop App] -- WebSocket --> C{Mopidy};
+    end
+
+    subgraph "Raspberry Pi Zero 2 W"
+        B -- "controls (play, volume, etc.)" --> C;
+        C -- "song info" --> D;
+        C -- "now playing" --> B;
+        B -- "yt-dlp commands" --> E[yt-dlp];
+        E -- "downloads audio" --> F[Music Storage];
+        C -- "reads from" --> F;
+        G[PN532 NFC Reader] -- SPI --> H[SPI Interface];
+        H -- "NFC data" --> I[NFC Controller Script];
+        I -- "song commands" --> C;
+        B -- "writes song URL to" --> I;
+        J[ESP32 Controller] -- USB Serial --> K[Serial Interface];
+        K -- "volume/playback commands" --> C;
+    end
+
+    subgraph "Physical Controls"
+        L[NFC Card] -- "NFC" --> G;
+        M[Potentiometer] --> J;
+        N[Play/Pause Button] --> J;
+        O[Next Button] --> J;
+        P[Previous Button] --> J;
+    end
+
+    A -- "interacts with" --> M;
+    A -- "interacts with" --> N;
+    A -- "interacts with" --> O;
+    A -- "interacts with" --> P;
+

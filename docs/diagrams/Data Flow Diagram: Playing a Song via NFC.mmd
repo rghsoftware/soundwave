@@ -1,0 +1,18 @@
+---
+title: "Data Flow Diagram: Playing a Song via NFC"
+---
+
+sequenceDiagram
+    participant User
+    participant NFC Card
+    participant PN532 Reader
+    participant NFC Reader Script
+    participant Mopidy
+
+    User->>+NFC Card: Taps card on reader
+    NFC Card-->>-PN532 Reader: Transmits song identifier (e.g., URI)
+    PN532 Reader->>+NFC Reader Script: Reads data from card via SPI
+    NFC Reader Script->>NFC Reader Script: Looks up song in local database/config
+    NFC Reader Script->>+Mopidy: Sends "play track" command with URI
+    Mopidy->>Mopidy: Adds track to queue and starts playback
+    Mopidy-->>-NFC Reader Script: Acknowledges command
