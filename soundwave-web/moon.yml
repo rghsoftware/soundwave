@@ -1,0 +1,66 @@
+type: "application"
+language: "typescript"
+
+# tags: ["vite", "vitest"]
+
+workspace:
+  inheritedTasks:
+    exclude: ["typecheck"]
+
+fileGroups:
+  app:
+    - "env.d.ts"
+    - "index.html"
+    - "vite.config.*"
+
+tasks:
+  dev:
+    command: "vite dev"
+    local: true
+
+  build:
+    command: "vite build"
+    inputs:
+      - "@group(app)"
+      - "@group(sources)"
+    outputs:
+      - "dist"
+
+  preview:
+    command: "vite preview --port 4173"
+    deps:
+      - "build"
+    local: true
+
+  test:
+    command:
+      - "vitest"
+      - "run"
+      - "--environment"
+      - "jsdom"
+      - "--coverage"
+      - "--passWithNoTests"
+    inputs:
+      - "@group(sources)"
+      - "@group(tests)"
+      - "tests/**/*"
+      - "vitest.config.*"
+
+  typecheck:
+    command:
+      - "vue-tsc"
+      - "--noEmit"
+      - "--project"
+      - "tsconfig.vitest.json"
+      - "--composite"
+      - "false"
+    inputs:
+      - "@group(sources)"
+      - "tests/**/*"
+      - "tsconfig.json"
+      - "tsconfig.*.json"
+  # ESLint integration (https://moonrepo.dev/docs/guides/examples/vue#eslint-integration)
+  lint:
+    args:
+      - "--ext"
+      - ".js,.ts,.vue"

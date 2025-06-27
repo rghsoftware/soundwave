@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Mopidy-Soundwave-Web"
+version = "0.1.0"
+description = "Web frontend for Soundwave"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["mopidy>=3.4.2", "pykka>=4.2.0", "setuptools>=80.9.0"]
+
+[dependency-groups]
+dev = ["isort>=6.0.1", "ruff>=0.12.1"]
+
+[project.scripts]
+web = "mopidy_soundwave_web:Extension"
+
+[project.entry-points."mopidy.ext"]
+web = "mopidy_soundwave_web:Extension"
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+# Same as Black.
+line-length = 120
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+known_tests = "tests"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,TESTS,LOCALFOLDER"
