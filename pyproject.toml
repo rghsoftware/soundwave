@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soundwave"
+version = "0.1.0"
+description = "Child-Friendly NFC Music Player"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mopidy>=3.4.2",
+    "pykka>=4.2.0",
+    "setuptools>=80.9.0",
+]
+
+[tool.uv.workspace]
+members = [
+    "soundwave-web",
+]
+
+[dependency-groups]
+dev = [
+    "isort>=6.0.1",
+    "ruff>=0.12.1",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+known_tests = "tests"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,TESTS,LOCALFOLDER"
+
+

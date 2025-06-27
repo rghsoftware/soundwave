@@ -1,6 +1,12 @@
 version = 1
 revision = 2
-requires-python = ">=3.11"
+requires-python = ">=3.11.13"
+
+[manifest]
+members = [
+    "soundwave",
+    "soundwave-web",
+]
 
 [[package]]
 name = "certifi"
@@ -151,13 +157,12 @@ wheels = [
 ]
 
 [[package]]
-name = "soundwave-web"
+name = "soundwave"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "mopidy" },
     { name = "pykka" },
-    { name = "ruff" },
     { name = "setuptools" },
 ]
 
@@ -171,7 +176,6 @@ dev = [
 requires-dist = [
     { name = "mopidy", specifier = ">=3.4.2" },
     { name = "pykka", specifier = ">=4.2.0" },
-    { name = "ruff", specifier = ">=0.12.1" },
     { name = "setuptools", specifier = ">=80.9.0" },
 ]
 
@@ -180,6 +184,11 @@ dev = [
     { name = "isort", specifier = ">=6.0.1" },
     { name = "ruff", specifier = ">=0.12.1" },
 ]
+
+[[package]]
+name = "soundwave-web"
+version = "0.1.0"
+source = { virtual = "soundwave-web" }
 
 [[package]]
 name = "tornado"
