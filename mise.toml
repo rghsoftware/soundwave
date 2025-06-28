@@ -3,6 +3,3 @@ node = "lts"
 python = "3.11"
 uv = "latest"
 yarn = "latest"
-
-[env]
-_.python.venv = ".venv"
