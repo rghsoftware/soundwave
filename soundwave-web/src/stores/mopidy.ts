@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { PlaybackState } from '@/types'
 import type { Track } from '@/types'
 
-interface MopidyState {
+export interface MopidyState {
   isConnected: boolean
   error: string | null
   playbackState: PlaybackState
