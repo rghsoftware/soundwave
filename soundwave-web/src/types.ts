@@ -1,3 +1,6 @@
+// This file defines TypeScript types for the Soundwave web application,
+// and is used to ensure type safety across the application. The types
+// are mostly convenient aliases for Mopidy models
 import mopidy from 'mopidy'
 
 export type Image = mopidy.models.Image
