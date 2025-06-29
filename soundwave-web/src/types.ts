@@ -1,52 +1,32 @@
-export interface Image {
-  uri: string
-  width?: number
-  height?: number
-}
+import mopidy from 'mopidy'
 
-export interface Artist {
-  uri: string
-  name: string
-  images?: Image[] // For artist images if available
-}
+export type Image = mopidy.models.Image
 
-export interface Album {
-  uri: string
-  name: string
-  artists?: Artist[]
+export type Artist = Pick<mopidy.models.Artist, 'uri' | 'name'>
+
+export type Album = Pick<
+  mopidy.models.Album,
+  'uri' | 'name' | 'date' | 'num_tracks' | 'artists'
+> & {
   images?: Image[]
-  date?: string
-  num_tracks?: number
 }
 
-export interface Track {
-  uri: string
-  name: string
-  artists?: Artist[]
-  album?: Album
-  duration_ms?: number // Mopidy uses milliseconds
-  track_no?: number
-  // images are typically derived from album
+export type Track = Pick<
+  mopidy.models.Track,
+  'uri' | 'name' | 'artists' | 'album' | 'length' | 'track_no' | 'date'
+>
+
+export interface TlTrack {
+  tlid: number // tracklist id, unique for this item in this tracklist
+  track: Track
 }
 
-export interface Playlist {
-  uri: string
-  name: string
-  tracks?: Track[] // Can be populated or fetched separately
-  last_modified?: number // Timestamp
-  images?: Image[] // For playlist cover images
-}
+export type Playlist = Pick<mopidy.models.Playlist, 'uri' | 'name' | 'last_modified' | 'tracks'>
 
 export enum PlaybackState {
   PLAYING = 'playing',
   PAUSED = 'paused',
   STOPPED = 'stopped',
-}
-
-// Represents a track within Mopidy's tracklist context (has tlid)
-export interface MopidyTracklistTrack {
-  tlid: number // tracklist id, unique for this item in this tracklist
-  track: Track
 }
 
 export enum MopidyRefType {
@@ -58,22 +38,11 @@ export enum MopidyRefType {
 }
 
 // Mopidy's Ref object, used for browsing results
-export interface MopidyRef {
-  uri: string
-  name: string
-  type: MopidyRefType
-}
-
-export interface BrowseResultItem extends MopidyRef {}
+export type MopidyRef<T extends MopidyRefType> = mopidy.models.Ref<T>
 
 export interface SearchResult {
   tracks: Track[]
   albums: Album[]
   artists: Artist[]
   playlists?: Playlist[] // Search can also return playlists
-}
-
-export interface PlayingTime {
-  current: number // in milliseconds
-  total: number // in milliseconds
 }
