@@ -2,40 +2,53 @@
 title: Hardware Wiring Diagram
 ---
 
-flowchart TD
- subgraph subGraph0["Raspberry Pi Zero 2 W"]
+graph TD
+    subgraph "Raspberry Pi Zero 2 W"
+        pi_hdmi["HDMI Port"]
         pi_gpio_spi["SPI Pins (MOSI, MISO, SCLK, CE0)"]
         pi_gpio_5v["5V Power"]
         pi_gpio_gnd["Ground"]
         pi_usb["USB Port"]
-  end
- subgraph subGraph1["PN532 NFC Reader"]
+    end
+    
+    subgraph "Display"
+        hdmi_display["4-inch HDMI Display"]
+    end
+
+    subgraph "PN532 NFC Reader"
         pn532_spi["SPI Pins (MOSI, MISO, SCK, SS)"]
         pn532_power["VCC"]
         pn532_gnd["GND"]
-  end
- subgraph ESP32["ESP32"]
+    end
+
+    subgraph "ESP32 Controller"
         esp32_usb["USB Port"]
-        esp32_adc["Analog Pin (for Potentiometer)"]
+        esp32_adc_vol["Analog Pin (for Volume)"]
         esp32_gpio_play["GPIO (for Play/Pause)"]
         esp32_gpio_next["GPIO (for Next)"]
         esp32_gpio_prev["GPIO (for Previous)"]
         esp32_gnd["Ground"]
-  end
- subgraph subGraph3["External Components"]
-        pot["Potentiometer"]
+    end
+
+    subgraph "External Components"
+        pot_vol["Volume Potentiometer"]
         play_btn["Play/Pause Button"]
         next_btn["Next Button"]
         prev_btn["Previous Button"]
-  end
-    pi_gpio_spi -- SPI Connection --> pn532_spi
-    pi_gpio_5v -- Power --> pn532_power
-    pi_gpio_gnd -- Ground --> pn532_gnd
-    pi_usb -- USB Data & Power --> esp32_usb
-    pot -- Analog Signal --> esp32_adc
-    play_btn -- Digital Signal --> esp32_gpio_play
-    next_btn -- Digital Signal --> esp32_gpio_next
-    prev_btn -- Digital Signal --> esp32_gpio_prev
-    esp32_gnd -- Ground --> pot & play_btn & next_btn & prev_btn
+    end
 
+    pi_hdmi -- "HDMI Cable" --> hdmi_display;
+    pi_gpio_spi -- "SPI Connection" --> pn532_spi;
+    pi_gpio_5v -- "Power" --> pn532_power;
+    pi_gpio_gnd -- "Ground" --> pn532_gnd;
 
+    pi_usb -- "USB Data & Power" --> esp32_usb;
+
+    pot_vol -- "Analog Signal" --> esp32_adc_vol;
+    play_btn -- "Digital Signal" --> esp32_gpio_play;
+    next_btn -- "Digital Signal" --> esp32_gpio_next;
+    prev_btn -- "Digital Signal" --> esp32_gpio_prev;
+    esp32_gnd -- "Ground" --> pot_vol;
+    esp32_gnd -- "Ground" --> play_btn;
+    esp32_gnd -- "Ground" --> next_btn;
+    esp32_gnd -- "Ground" --> prev_btn;

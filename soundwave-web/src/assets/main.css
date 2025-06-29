@@ -1,0 +1,40 @@
+@import './base.css';
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+.btn {
+  @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-sm;
+}
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-hover;
+}
+.btn-secondary {
+  @apply bg-muted text-text-main hover:bg-muted-hover;
+}
+.btn-icon-only {
+  @apply h-10 w-10 flex items-center justify-center rounded-lg bg-muted text-text-secondary hover:bg-muted-hover hover:text-text-main;
+}
+.icon-btn {
+  @apply text-text-secondary hover:text-primary transition-colors duration-200;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: opacity 0.3s ease;
+}
+.modal-content {
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.modal-overlay:not(.hidden) .modal-content {
+  transform: scale(1);
+}

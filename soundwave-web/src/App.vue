@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld />
-    </v-main>
-  </v-app>
+  <main>
+    <NowPlayingCard />
+  </main>
 </template>
 
 <script setup lang="ts">
-  //
+import NowPlayingCard from '@/components/NowPlayingCard.vue'
 </script>
+
+<style scoped></style>

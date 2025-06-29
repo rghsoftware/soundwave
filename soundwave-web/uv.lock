@@ -93,6 +93,21 @@ wheels = [
 ]
 
 [[package]]
+name = "mopidy-local"
+version = "3.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mopidy" },
+    { name = "pykka" },
+    { name = "setuptools" },
+    { name = "uritools" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/02/c5/d099a05df7d6b0687071aa7d2d7a3499802b3b4b641531cd46ec8e6e7035/mopidy_local-3.3.0.tar.gz", hash = "sha256:cba6ed6c693952255a9f5efcc7b77d8eae4e4e728c6ee9621efd1a471b992b7a", size = 39180, upload-time = "2024-12-17T23:15:47.889Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/ed/38ba58e3003fb815206acb47fcd5fa8c1c0c3b70f0100c5269f847d9314e/Mopidy_Local-3.3.0-py3-none-any.whl", hash = "sha256:6b6581be2136058780d9ea40495b54f288d89de4d012eb8a6b8ddc7324153b18", size = 32342, upload-time = "2024-12-17T23:15:45.41Z" },
+]
+
+[[package]]
 name = "nodeenv"
 version = "1.9.1"
 source = { registry = "https://pypi.org/simple" }
@@ -204,6 +219,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "mopidy" },
+    { name = "mopidy-local" },
     { name = "pygobject" },
     { name = "pykka" },
     { name = "setuptools" },
@@ -219,6 +235,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "mopidy", specifier = ">=3.4.2" },
+    { name = "mopidy-local", specifier = ">=3.3.0" },
     { name = "pygobject", specifier = ">=3.52.3" },
     { name = "pykka", specifier = ">=4.2.0" },
     { name = "setuptools", specifier = ">=80.9.0" },
@@ -257,6 +274,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d1/bc/51647cd02527e87d05cb083ccc402f93e441606ff1f01739a62c8ad09ba5/typing_extensions-4.14.0.tar.gz", hash = "sha256:8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4", size = 107423, upload-time = "2025-06-02T14:52:11.399Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/69/e0/552843e0d356fbb5256d21449fa957fa4eff3bbc135a74a691ee70c7c5da/typing_extensions-4.14.0-py3-none-any.whl", hash = "sha256:a1514509136dd0b477638fc68d6a91497af5076466ad0fa6c338e44e359944af", size = 43839, upload-time = "2025-06-02T14:52:10.026Z" },
+]
+
+[[package]]
+name = "uritools"
+version = "5.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/b1/e482d43db3209663b82a59e37cf31f641254180190667c6b0bf18a297de8/uritools-5.0.0.tar.gz", hash = "sha256:68180cad154062bd5b5d9ffcdd464f8de6934414b25462ae807b00b8df9345de", size = 22730, upload-time = "2025-05-02T13:38:20.67Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8c/74/0987d204b5fbf83861affa6b36a20da22cb3fe708583b955c99ab834bd5a/uritools-5.0.0-py3-none-any.whl", hash = "sha256:cead3a49ba8fbca3f91857343849d506d8639718f4a2e51b62e87393b493bd6f", size = 10432, upload-time = "2025-05-02T13:38:18.703Z" },
 ]
 
 [[package]]

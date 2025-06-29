@@ -5,36 +5,34 @@ title: Software & Network Architecture
 graph TD
     subgraph "User Interfaces"
         A[Web UI on Browser]
-        B[Now Playing Desktop App]
-        C[Physical Controls via ESP32]
+        B[Physical Controls via ESP32]
+        C[Local Kivy Display]
     end
 
     subgraph "Raspberry Pi Zero 2 W"
         D{Mopidy Server}
-        E[Mopidy-MPD]
-        F[Mopidy-HTTP]
-        G[Mopidy-Local]
-        H[yt-dlp Script]
-        I[NFC Reader Script]
-        J[ESP32 Serial Listener]
+        E[Mopidy-Web Extension]
+        F[Mopidy-Kivy Extension]
+        NFC_Ext[Mopidy-NFC Extension]
+        G[Pi-side Serial Listener]
+        DS[Download Server]
+        YTDL[yt-dlp process]
     end
 
-    A -- "HTTP/WebSocket" --> F;
-    F -- "controls" --> D;
-    D -- "now playing info" --> F;
-
-    B -- "MPD Protocol (over TCP)" --> E;
+    A -- "HTTP/WebSocket for UI/Controls" --> E;
+    A -- "GET /api/download" --> DS;
+    DS -- "runs" --> YTDL;
+    DS -- "HTTP RPC to core.library.refresh" --> D;
+    
     E -- "controls" --> D;
-    D -- "now playing info" --> E;
+    E -- "triggers NFC write via Mopidy Core API" --> NFC_Ext;
 
-    C -- "USB Serial" --> J;
-    J -- "parses and sends commands" --> D;
-
-    A -- "triggers" --> H;
-    H -- "adds to library" --> G;
-    G -- "updates" --> D;
-
-    A -- "triggers" --> I;
-    I -- "writes to NFC card" --> K((NFC Card));
-    K -- "is read by" --> I;
-    I -- "sends play command" --> D;
+    B -- "USB Serial" --> G;
+    G -- "controls" --> D;
+    
+    F -- "gets now playing info from" --> D;
+    D -- "sends events to" --> F;
+    C -- "is the output of" --> F;
+    
+    NFC_Ext -- "sends play commands" --> D;
+    D -- "sends events to" --> NFC_Ext;

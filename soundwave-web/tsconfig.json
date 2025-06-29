@@ -6,6 +6,17 @@
     },
     {
       "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "ES2023"
+    ],
+    "target": "ES2023",
+    "module": "NodeNext"
+  }
 }

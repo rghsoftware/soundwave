@@ -12,6 +12,7 @@ readme = "README.md"
 requires-python = ">=3.11.13"
 dependencies = [
   "mopidy>=3.4.2",
+  "mopidy-local>=3.3.0",
   "pygobject>=3.52.3",
   "pykka>=4.2.0",
   "setuptools>=80.9.0",

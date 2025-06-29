@@ -1,34 +1,54 @@
+---
+Title: System Architecture Diagram
+---
+
 graph TD
     subgraph "Local Network"
-        A[Mobile/Desktop Browser] -- HTTP --> B{Web Server};
-        D[Now Playing Desktop App] -- WebSocket --> C{Mopidy};
+        A[Mobile/Desktop Browser]
     end
 
     subgraph "Raspberry Pi Zero 2 W"
-        B -- "controls (play, volume, etc.)" --> C;
-        C -- "song info" --> D;
-        C -- "now playing" --> B;
-        B -- "yt-dlp commands" --> E[yt-dlp];
-        E -- "downloads audio" --> F[Music Storage];
+        C{Mopidy}
+        DS[Download Server - FastAPI]
+        E[yt-dlp]
+        F[Music Storage]
+        Kivy[Mopidy-Kivy Extension]
+        HDMI[HDMI Output]
+        NFC_Ext[Mopidy-NFC Extension]
+        
+        A -- "HTTP/WebSocket for controls" --> C;
+        A -- "HTTP for downloads" --> DS;
+        
+        DS -- "triggers Mopidy scan" --> C;
+        DS -- "calls" --> E;
+        E -- "downloads audio" --> F;
+        
+        C -- "now playing info" --> Kivy;
+        Kivy -- "renders to" --> HDMI;
+        
         C -- "reads from" --> F;
-        G[PN532 NFC Reader] -- SPI --> H[SPI Interface];
-        H -- "NFC data" --> I[NFC Controller Script];
-        I -- "song commands" --> C;
-        B -- "writes song URL to" --> I;
-        J[ESP32 Controller] -- USB Serial --> K[Serial Interface];
-        K -- "volume/playback commands" --> C;
+        
+        G -- "SPI / NFC data" --> NFC_Ext;
+        NFC_Ext -- "song commands" --> C;
+        
+        J -- "USB Serial commands" --> C;
     end
 
-    subgraph "Physical Controls"
-        L[NFC Card] -- "NFC" --> G;
-        M[Potentiometer] --> J;
-        N[Play/Pause Button] --> J;
-        O[Next Button] --> J;
-        P[Previous Button] --> J;
-    end
+    subgraph "Physical Peripherals"
+        Display[4-inch HDMI Display]
+        L[NFC Card]
+        M[Volume Potentiometer]
+        N[Play/Pause Button]
+        O[Next Button]
+        P[Previous Button]
+        G[PN532 NFC Reader]
+        J[ESP32 Controller]
 
-    A -- "interacts with" --> M;
-    A -- "interacts with" --> N;
-    A -- "interacts with" --> O;
-    A -- "interacts with" --> P;
+        HDMI -- "video signal" --> Display;
+        L -- "NFC" --> G;
+        M --> J;
+        N --> J;
+        O --> J;
+        P --> J;
+    end
 

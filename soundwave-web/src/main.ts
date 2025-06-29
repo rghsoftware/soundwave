@@ -1,23 +1,21 @@
-/**
- * main.ts
- *
- * Bootstraps Vuetify and other plugins then mounts the App`
- */
+import './assets/main.css'
 
-// Plugins
-import { registerPlugins } from '@/plugins'
-
-// Components
-import App from './App.vue'
-
-// Composables
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-// Styles
-import 'unfonts.css'
+import App from '@/App.vue'
+
+import { useMopidyStore } from '@/stores/mopidy'
+import { MopidyService } from '@/services/mopidy'
 
 const app = createApp(App)
+const pinia = createPinia()
 
-registerPlugins(app)
+app.use(pinia)
+
+const mopidyStore = useMopidyStore()
+const mopidyService = new MopidyService(mopidyStore)
+mopidyService.connect()
+app.provide('mopidyService', mopidyService)
 
 app.mount('#app')
