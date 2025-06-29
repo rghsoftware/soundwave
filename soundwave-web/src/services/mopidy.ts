@@ -24,6 +24,8 @@ export class MopidyService {
       console.log('Mopidy connected')
       this.store.setConnected(true)
       this.store.setError(null)
+      this.store.setPlaybackState(PlaybackState.PAUSED)
+      this.store.setVolume(50)
       // Fetch initial state once connected
       this.fetchInitialState()
     })
