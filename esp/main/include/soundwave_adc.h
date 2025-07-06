@@ -14,6 +14,6 @@ typedef struct
   adc_oneshot_unit_init_cfg_t unit_cfg; // ADC unit configuration
 } soundwave_adc_config_t;
 
-void adc_init(soundwave_adc_config_t *adc_config);
+void soundwave_adc_init(soundwave_adc_config_t *adc_config);
 
 #endif // SOUNDWAVE_ADC_H

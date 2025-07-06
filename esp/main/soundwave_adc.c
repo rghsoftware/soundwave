@@ -63,7 +63,7 @@ adc_calibration_init(adc_unit_t unit, adc_channel_t channel, adc_atten_t atten, 
   return calibrated;
 }
 
-void adc_init(soundwave_adc_config_t *adc_config)
+void soundwave_adc_init(soundwave_adc_config_t *adc_config)
 {
   adc_config->unit_cfg = (adc_oneshot_unit_init_cfg_t) {
     .unit_id = ADC_UNIT_1,
