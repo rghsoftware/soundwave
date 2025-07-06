@@ -1,0 +1,6 @@
+[tools]
+python = "3.11.2"
+uv = "latest"
+
+[env]
+_.python.venv = ".venv"
