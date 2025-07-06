@@ -4,8 +4,16 @@
 #include <driver/spi_master.h>
 #include <hal/adc_types.h>
 
-#define SOUNDWAVE_SPI_HOST   VSPI_HOST
-#define SOUNDWAVE_ADC_CHAN_1 ADC_CHANNEL_0
-#define SOUNDWAVE_ADC_CHAN_2 ADC_CHANNEL_3
+// SPI Definitions
+#define SOUNDWAVE_SPI_HOST     (VSPI_HOST)
+#define SOUNDWAVE_SPI_DMA_CHAN (SPI_DMA_CH_AUTO) // DMA channel for SPI
+#define SOUNDWAVE_MOSI_PIN     (23)
+#define SOUNDWAVE_MISO_PIN     (19)
+#define SOUNDWAVE_SCLK_PIN     (18)
+#define SOUNDWAVE_CS_PIN       (5)
+
+// ADC Definitions
+#define SOUNDWAVE_ADC_CHAN_1 (ADC_CHANNEL_0)
+#define SOUNDWAVE_ADC_CHAN_2 (ADC_CHANNEL_3)
 
 #endif // SOUNDWAVE_DEFINES_H
