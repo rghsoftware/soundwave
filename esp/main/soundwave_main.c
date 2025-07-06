@@ -1,4 +1,5 @@
 #include "soundwave_adc.h"
+#include "soundwave_defines.h"
 
 #include <freertos/FreeRTOS.h>
 
@@ -11,14 +12,14 @@ const static char *TAG = "[SOUNDWAVE][MAIN]";
 
 typedef struct
 {
-  soundwave_adc_config_t adc_config; // ADC configuration
+  soundwave_adc_config_t adc_config;
 } soundwave_config_t;
 
 void app_main(void)
 {
   ESP_LOGI(TAG, "Starting Soundwave application...");
   soundwave_config_t soundwave_config = { .adc_config = {
-                                              .channels = { ADC_CHANNEL_0, ADC_CHANNEL_3 },
+                                              .channels = { SOUNDWAVE_ADC_CHAN_1, SOUNDWAVE_ADC_CHAN_2 },
                                           } };
   adc_init(&soundwave_config.adc_config);
 
