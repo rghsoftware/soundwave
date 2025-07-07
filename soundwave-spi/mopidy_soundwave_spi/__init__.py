@@ -4,6 +4,7 @@ import logging
 import pathlib
 
 from mopidy import ext
+from mopidy.config import types as config_types
 
 __version__ = "0.1.0"
 
@@ -16,7 +17,13 @@ class Extension(ext.Extension):
     version = __version__
 
     def get_config_schema(self):
-        return super(Extension, self).get_config_schema()
+        schema = super(Extension, self).get_config_schema()
+        schema["spi_bus"] = config_types.Integer()
+        schema["spi_device"] = config_types.Integer()
+        schema["spi_speed_hz"] = config_types.Integer()
+        schema["spi_mode"] = config_types.Integer()
+
+        return schema
 
     def get_default_config(self):
         config_file = pathlib.Path(__file__).parent / "ext.conf"
