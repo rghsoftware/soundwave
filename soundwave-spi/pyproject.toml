@@ -7,7 +7,7 @@ name = "Soundwave-SPI"
 version = "0.1.0"
 description = "SPI interface for Soundwave"
 readme = "README.md"
-requires-python = ">=3.11.2"
+requires-python = ">=3.13.5"
 dependencies = [
   "mopidy>=3.4.2",
   "mopidy-local>=3.3.0",
