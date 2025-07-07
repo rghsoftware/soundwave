@@ -4,12 +4,13 @@ from time import sleep
 import pykka
 import spidev
 
-from mopidy import core
+from mopidy.core.listener import CoreListener
+from mopidy.audio.constants import PlaybackState
 
 logger = logging.getLogger(__name__)
 
 
-class SoundwaveSPIFrontend(pykka.ThreadingActor, core.CoreListener):
+class SoundwaveSPIFrontend(pykka.ThreadingActor, CoreListener):
     def __init__(self, config, core):
         super().__init__()
         self.config = config["soundwave-spi"]
@@ -33,9 +34,9 @@ class SoundwaveSPIFrontend(pykka.ThreadingActor, core.CoreListener):
                     self.core.playback.next()
                 if rx_packet[2]:
                     playing = self.core.playback.get_playback_state()
-                    if playing == core.PlaybackState.PLAYING:
+                    if playing == PlaybackState.PLAYING:
                         self.core.playback.pause()
-                    elif playing == core.PlaybackState.PAUSED:
+                    elif playing == PlaybackState.PAUSED:
                         self.core.playback.resume()
                     else:
                         self.core.playback.play()
