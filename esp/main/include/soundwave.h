@@ -3,13 +3,14 @@
 
 #include "soundwave_adc.h"
 #include "soundwave_spi.h"
+#include <stdint.h>
 
 typedef struct {
-  bool previous : 1;
-  bool next : 1;
-  bool play_pause : 1;
-  int volume : 12;
-  int brightness : 12;
+  bool previous;
+  bool next;
+  bool play_pause;
+  uint8_t volume;
+  uint8_t brightness;
 } soundwave_tx_packet_t;
 
 typedef struct {
