@@ -16,7 +16,7 @@ class SoundwaveSPIFrontend(pykka.ThreadingActor, core.CoreListener):
         self.core = core
 
         self.spi = spidev.SpiDev()
-        self.spi.max_speed_hz = self.config["spi_speed"] or 2000000
+        self.spi.max_speed_hz = self.config["spi_speed_hz"] or 2000000
         self.spi.mode = self.config["spi_mode"] or 0
         self.spi.open(self.config["spi_bus"] or 0, self.config["spi_device"] or 0)
         self._run = True
