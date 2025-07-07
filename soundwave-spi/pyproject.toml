@@ -9,11 +9,11 @@ description = "SPI interface for Soundwave"
 readme = "README.md"
 requires-python = ">=3.11.2"
 dependencies = [
-    "mopidy>=3.4.2",
-    "mopidy-local>=3.3.0",
-    "pygobject>=3.52.3",
-    "pykka>=4.2.0",
-    "spidev>=3.7",
+  "mopidy>=3.4.2",
+  "mopidy-local>=3.3.0",
+  "pygobject>=3.50.0",
+  "pykka>=4.2.0",
+  "spidev>=3.7",
 ]
 
 [project.scripts]

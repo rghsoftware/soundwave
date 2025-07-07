@@ -1,5 +1,5 @@
 [tools]
-python = "3.11.2"
+python = "latest"
 uv = "latest"
 
 [env]
