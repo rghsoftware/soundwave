@@ -1,3 +1,4 @@
+#include "include/soundwave_defines.h"
 #include "soundwave.h"
 #include "soundwave_defines.h"
 
@@ -65,7 +66,7 @@ void app_main(void) {
       brightness_voltage = app_cfg.adc_config.voltage[1];
       tx_packet.brightness =
           soundwave_normalize_adc_voltage(brightness_voltage);
-      ESP_LOGI(TAG, "Brightness changed: %d", tx_packet.brightness);
+      ESP_LOGI(TAG, "Brightness changed: %d (%d mV)", tx_packet.brightness, brightness_voltage);
     } else {
       tx_packet.brightness = 101;
     }
@@ -75,8 +76,8 @@ void app_main(void) {
 
     if (send_packet) {
       send_packet = false;
-      soundwave_spi_transmit(&app_cfg.spi_config, (uint8_t *)&tx_packet,
-                             sizeof(tx_packet));
+      // soundwave_spi_transmit(&app_cfg.spi_config, (uint8_t *)&tx_packet,
+      //                        sizeof(tx_packet));
 
       // Reset the flags here because the physical buttons reset after being
       // pressed. The volume and brightness values are reset after the ADC
@@ -98,5 +99,5 @@ void app_main(void) {
 
 inline uint8_t soundwave_normalize_adc_voltage(int voltage) {
   // Normalize the ADC voltage to a range of 0-100
-  return (uint8_t)((voltage / SOUNDWAVE_ADC_MAX_VOLTAGE) * 100);
+  return (uint8_t)(((voltage - SOUNDWAVE_ADC_MIN_VOLTAGE) / (float)SOUNDWAVE_ADC_VOLTAGE_RANGE) * 100);
 }
