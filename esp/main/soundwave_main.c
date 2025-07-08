@@ -76,8 +76,8 @@ void app_main(void) {
 
     if (send_packet) {
       send_packet = false;
-      soundwave_spi_transmit(&app_cfg.spi_config, (uint8_t *)&tx_packet,
-                             sizeof(tx_packet));
+      // soundwave_spi_transmit(&app_cfg.spi_config, (uint8_t *)&tx_packet,
+      //                        sizeof(tx_packet));
 
       // Reset the flags here because the physical buttons reset after being
       // pressed. The volume and brightness values are reset after the ADC
