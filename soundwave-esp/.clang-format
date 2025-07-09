@@ -1,8 +1,8 @@
 ---
 Language: Cpp
 BasedOnStyle: LLVM
-# AlignConsecutiveMacros: Consecutive
-# AlignOperands: Align
+AlignConsecutiveMacros: Consecutive
+AlignOperands: Align
 # AlignTrailingComments: true
 # AllowAllArgumentsOnNextLine: true
 # AllowAllConstructorInitializersOnNextLine: false
